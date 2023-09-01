@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
   // const index = readFileSync("index.html", "utf-8");
   import path from 'path';
-  const data = JSON.parse(readFileSync(path.resolve("data.json"), "utf-8"));
+  const data = JSON.parse(readFileSync(path.resolve("./data.json"), "utf-8"));
   const users = data.users;
   // REST API
   //  C (CREATE)    R (READ)    U(UPDATE)     D (DELETE)
