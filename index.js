@@ -51,8 +51,13 @@
 import Express from "express";
 import router from "./routes/router.js";
 import routers from "./routes/users.js";
+import mongoose from "mongoose";
+import cors from "cors";
+import path from "path";
 const server = Express();
 import morgan from "morgan";
+import * as dotenv from "dotenv";
+dotenv.config();
 // MIDDLEWARE
 // _Application level middleware example_
 // server.use((req, res, next) => {
@@ -78,14 +83,17 @@ import morgan from "morgan";
 // server.use(auth);
 
 // body parser -- now by default i express (express.json()) , used to understand body as json
-//server.use(Express.static("public")); //--use for static hosting
+server.use(Express.static(path.resolve(process.env.PUBLIC_DIR))); //--use for static hosting
 // third party middleware
 // server.use(morgan("dev"));
 server.use(morgan("combined"));
 server.use(Express.json());
-
+server.use(cors());
 // direct routing is not suggested for higher level application , for that we will use express.route
 server.use("/products", router);
+server.use("*", (req, res) => {
+  res.sendFile(path.resolve("build", "index.html"));
+});
 server.use("/users", routers);
 // this / will act as routing --
 // example
@@ -124,4 +132,12 @@ server.use("/users", routers);
 //   // or can also send status as
 //   res.status(200).send("<h1>HELLO</h1>");
 // });
-server.listen(8080);
+main().catch((err) => console.log(err));
+
+async function main() {
+  await mongoose.connect(process.env.MONGO_URL);
+
+  console.log("database connected");
+}
+
+server.listen(process.env.PORT);
