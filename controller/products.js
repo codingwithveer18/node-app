@@ -44,7 +44,7 @@ const replaceproduct = async (req, res) => {
     res.status(400).json(err);
   }
 };
-const updateproduct =async (req, res) => {
+const updateproduct = async (req, res) => {
   const ID = req.params.id;
   // const prdtIndex = products.findIndex((p) => p.id === ID);
   // const prdt = products[prdtIndex];
@@ -67,7 +67,7 @@ const deleteproduct = async (req, res) => {
   // products.splice(prdtIndex, 1);
   // res.status(201).json(prdt);
   try {
-    const product = await Product.findOneAndDelete({ _id: ID});
+    const product = await Product.findOneAndDelete({ _id: ID });
     res.status(201).json(product);
   } catch (err) {
     console.log(err);
