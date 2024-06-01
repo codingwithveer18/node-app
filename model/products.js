@@ -11,7 +11,6 @@ const productsSchema = new Schema({
   brand: { type: String },
   category: { type: String, required: true },
   thumbnail: String,
-  images: [String],
 });
 const Product = mongoose.model("Product", productsSchema); // ('Collection name in Database' , & it's schema )
 
